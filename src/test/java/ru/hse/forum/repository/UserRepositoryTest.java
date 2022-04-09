@@ -24,9 +24,6 @@ public class UserRepositoryTest extends BaseTest {
         User expectedUserObject =
                 new User(123L,
                         "test user",
-                        "Shair",
-                        "Dilavar",
-                        null,
                         "secret password",
                         "user@email.com",
                         Instant.now(),
