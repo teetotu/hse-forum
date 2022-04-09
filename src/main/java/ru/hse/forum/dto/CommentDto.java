@@ -9,7 +9,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentsDto {
+public class CommentDto {
     private Long id;
     private Long postId;
     private Instant date;

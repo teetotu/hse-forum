@@ -29,10 +29,10 @@ public class Post {
     private String description;
     private Integer reactionCount = 0;
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
     private Instant date;
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "section_id", referencedColumnName = "id")
     private Section section;
 }

@@ -2,14 +2,12 @@ package ru.hse.forum.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hse.forum.config.AppConfig;
-import ru.hse.forum.dto.AuthenticationResponse;
-import ru.hse.forum.dto.LoginRequest;
-import ru.hse.forum.dto.RefreshTokenRequest;
-import ru.hse.forum.dto.RegisterRequest;
+import ru.hse.forum.dto.*;
 import ru.hse.forum.exceptions.HseForumException;
 import ru.hse.forum.model.NotificationEmail;
 import ru.hse.forum.model.User;
@@ -50,14 +48,11 @@ public class AuthService {
 
     public void signup(RegisterRequest registerRequest) {
         User user = new User();
-//        if (!registerRequest.getEmail().contains("hse.ru")) throw new HseForumException("You can only use @hse.ru emails");
-        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) throw new HseForumException("Use a different email");
+        if (!registerRequest.getEmail().contains("hse.ru")) throw new HseForumException("You can only use @*hse.ru emails");
+        if (userRepository.findByEmail(registerRequest.getEmail()).isPresent()) throw new HseForumException("Email already used");
         user.setEmail(registerRequest.getEmail());
         user.setUsername(registerRequest.getEmail().split("@")[0]);
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setFirstName(registerRequest.getFirstName());
-        user.setLastName(registerRequest.getLastName());
-        user.setPatronymic(registerRequest.getPatronymic() == null ? "" : registerRequest.getPatronymic());
         user.setCreated(Instant.now());
         user.setEnabled(false);
         user.setProfilePicture(null);
@@ -137,16 +132,5 @@ public class AuthService {
     public boolean isLoggedIn() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
-    }
-
-    public void setProfilePicture(MultipartFile picture) throws IOException {
-        User user = getCurrentUser();
-        user.setProfilePicture(picture.getBytes());
-        userRepository.save(user);
-    }
-
-    public byte[] getProfilePicture() {
-        User user = getCurrentUser();
-        return user.getProfilePicture();
     }
 }

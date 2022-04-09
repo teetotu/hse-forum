@@ -3,7 +3,7 @@ package ru.hse.forum.service;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import ru.hse.forum.dto.PostRequest;
-import ru.hse.forum.dto.PostResponse;
+import ru.hse.forum.dto.PostDTO;
 import ru.hse.forum.exceptions.HseForumException;
 import ru.hse.forum.exceptions.PostNotFoundException;
 import ru.hse.forum.exceptions.SectionNotFoundException;
@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -44,13 +43,13 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostResponse getPost(Long id) {
+    public PostDTO getPost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new PostNotFoundException(id.toString()));
         return postMapper.mapToDto(post);
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getAllPosts(int page, int size) {
+    public List<PostDTO> getAllPosts(int page, int size) {
         return postRepository.findAll(PageRequest.of(page, size, Sort.by("date").ascending()))
                 .stream()
                 .map(postMapper::mapToDto)
@@ -58,7 +57,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getPostsBySection(Long sectionId, int page, int size) {
+    public List<PostDTO> getPostsBySection(Long sectionId, int page, int size) {
         Section section =
                 sectionRepository
                         .findById(sectionId)
@@ -68,7 +67,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getPostsByUsername(String username, int page, int size) {
+    public List<PostDTO> getPostsByUsername(String username, int page, int size) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));
         return postRepository.findAllByUser(user, PageRequest.of(page, size, Sort.by("date").ascending()))
@@ -78,7 +77,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getPostsByKeywordsInTitle(String userInput, int page, int size) {
+    public List<PostDTO> getPostsByKeywordsInTitle(String userInput, int page, int size) {
         return postRepository
                 .search(userInput, PageRequest.of(page, size, Sort.by("date").ascending()))
                 .stream()
@@ -86,7 +85,7 @@ public class PostService {
                 .collect(toList());
     }
 
-    public PostResponse updatePost(PostRequest postRequest) {
+    public PostDTO updatePost(PostRequest postRequest) {
         Post post = postRepository.findById(postRequest.getPostId()).orElseThrow(() -> new HseForumException("Could find post with id: " + postRequest.getPostId()));
         if (post.getUser() != authService.getCurrentUser())
             throw new HseForumException("Post [id:" + postRequest.getPostId() + "] doesn't belong to " +
@@ -110,7 +109,7 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    public List<PostResponse> getSubscriptionsPosts(int page, int size) {
+    public List<PostDTO> getSubscriptionsPosts(int page, int size) {
         return postRepository
                 .findAllBySectionIn(authService.getCurrentUser().getSubscriptions(), PageRequest.of(page, size))
                 .stream()

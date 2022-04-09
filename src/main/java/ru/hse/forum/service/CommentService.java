@@ -1,6 +1,6 @@
 package ru.hse.forum.service;
 
-import ru.hse.forum.dto.CommentsDto;
+import ru.hse.forum.dto.CommentDto;
 import ru.hse.forum.exceptions.PostNotFoundException;
 import ru.hse.forum.exceptions.HseForumException;
 import ru.hse.forum.mapper.CommentMapper;
@@ -30,11 +30,11 @@ public class CommentService {
     private final MailContentBuilder mailContentBuilder;
     private final MailService mailService;
 
-    public void save(CommentsDto commentsDto) {
+    public void save(CommentDto commentDto) {
         Post post = postRepository
-                .findById(commentsDto.getPostId())
-                .orElseThrow(() -> new PostNotFoundException(commentsDto.getPostId().toString()));
-        Comment comment = commentMapper.map(commentsDto, post, authService.getCurrentUser());
+                .findById(commentDto.getPostId())
+                .orElseThrow(() -> new PostNotFoundException(commentDto.getPostId().toString()));
+        Comment comment = commentMapper.map(commentDto, post, authService.getCurrentUser());
         commentRepository.save(comment);
 
         String message = mailContentBuilder.build(post.getUser().getUsername() + " posted a comment on your post.");
@@ -45,14 +45,14 @@ public class CommentService {
         mailService.sendMail(new NotificationEmail(user.getUsername() + " Commented on your post", user.getEmail(), message));
     }
 
-    public List<CommentsDto> getAllCommentsForPost(Long postId) {
+    public List<CommentDto> getAllCommentsForPost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new PostNotFoundException(postId.toString()));
         return commentRepository.findByPost(post)
                 .stream()
                 .map(commentMapper::mapToDto).collect(toList());
     }
 
-    public List<CommentsDto> getAllCommentsForUser(String username) {
+    public List<CommentDto> getAllCommentsForUser(String username) {
         User user = userRepository
                 .findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException(username));

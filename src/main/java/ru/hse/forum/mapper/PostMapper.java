@@ -1,8 +1,7 @@
 package ru.hse.forum.mapper;
 
-import com.github.marlonlom.utilities.timeago.TimeAgo;
 import ru.hse.forum.dto.PostRequest;
-import ru.hse.forum.dto.PostResponse;
+import ru.hse.forum.dto.PostDTO;
 import ru.hse.forum.model.ReactionType;
 import ru.hse.forum.repository.CommentRepository;
 import ru.hse.forum.repository.ReactionRepository;
@@ -38,7 +37,7 @@ public abstract class PostMapper {
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
     @Mapping(target = "upvote", expression = "java(isPostUpvoted(post))")
     @Mapping(target = "downvote", expression = "java(isPostDownvoted(post))")
-    public abstract PostResponse mapToDto(Post post);
+    public abstract PostDTO mapToDto(Post post);
 
     Integer commentCount(Post post) {
         return commentRepository.findByPost(post).size();

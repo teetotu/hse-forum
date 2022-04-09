@@ -22,14 +22,12 @@ public class SectionController {
 
     @PostMapping
     public ResponseEntity<SectionDto> createSection(@RequestBody SectionDto sectionDto) {
-        if (!authService.getCurrentUser().isEnabled()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(sectionService.save(sectionDto));
     }
 
     @GetMapping("?page={page}")
     public ResponseEntity<List<SectionDto>> getAllSections(@PathVariable("page") Integer page) {
-        if (!authService.getCurrentUser().isEnabled()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(sectionService.getPage(page, 30));
@@ -37,7 +35,6 @@ public class SectionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SectionDto> getSection(@PathVariable Long id) {
-        if (!authService.getCurrentUser().isEnabled()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(sectionService.getSection(id));
@@ -46,7 +43,6 @@ public class SectionController {
     @GetMapping("/search?keywords={keywords}&page={page}")
     public ResponseEntity<List<SectionDto>> getSectionByKeywordsInTitle(
             @PathVariable("keywords") String keywords, @PathVariable("page") Integer page) {
-        if (!authService.getCurrentUser().isEnabled()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(sectionService.search(keywords, page, 30));
@@ -54,7 +50,6 @@ public class SectionController {
 
     @PostMapping("/subscribe?{id}")
     public ResponseEntity<Void> subscribeToSection(@PathVariable("id") Long id) {
-        if (!authService.getCurrentUser().isEnabled()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         sectionService.subscribeUser(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

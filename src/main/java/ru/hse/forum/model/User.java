@@ -24,11 +24,6 @@ public class User {
     private Long userId;
     @NotBlank(message = "Username is required")
     private String username;
-    @NotBlank(message = "First name is required")
-    private String firstName;
-    @NotBlank(message = "Last name is required")
-    private String lastName;
-    private String patronymic;
     @NotBlank(message = "Password is required")
     private String password;
     @Email

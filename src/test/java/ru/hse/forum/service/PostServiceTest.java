@@ -1,8 +1,7 @@
 package ru.hse.forum.service;
 
-import org.springframework.data.domain.PageRequest;
 import ru.hse.forum.dto.PostRequest;
-import ru.hse.forum.dto.PostResponse;
+import ru.hse.forum.dto.PostDTO;
 import ru.hse.forum.mapper.PostMapper;
 import ru.hse.forum.model.Post;
 import ru.hse.forum.model.Section;
@@ -56,13 +55,13 @@ class PostServiceTest {
     public void shouldFindPostById() {
         Post post = new Post(123L, "First Post", "Test",
                 0, null, Instant.now(), null);
-        PostResponse expectedPostResponse = new PostResponse(123L, "First Post", "Test",
+        PostDTO expectedPostResponse = new PostDTO(123L, "First Post", "Test",
                 "Test User", "Test Subredit", 0, 0, false, false);
 
         Mockito.when(postRepository.findById(123L)).thenReturn(Optional.of(post));
         Mockito.when(postMapper.mapToDto(Mockito.any(Post.class))).thenReturn(expectedPostResponse);
 
-        PostResponse actualPostResponse = postService.getPost(123L);
+        PostDTO actualPostResponse = postService.getPost(123L);
 
         Assertions.assertThat(actualPostResponse.getId()).isEqualTo(expectedPostResponse.getId());
         Assertions.assertThat(actualPostResponse.getPostTitle()).isEqualTo(expectedPostResponse.getPostTitle());
@@ -73,9 +72,6 @@ class PostServiceTest {
     public void shouldSavePosts() {
         User currentUser = new User(123L,
                 "test user",
-                "Shair",
-                "Dilavar",
-                null,
                 "secret password",
                 "user@email.com",
                 Instant.now(),

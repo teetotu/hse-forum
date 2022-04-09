@@ -21,7 +21,6 @@ public class ReactionController {
 
     @PostMapping
     public ResponseEntity<Void> vote(@RequestBody ReactionDto reactionDto) {
-        if (!authService.getCurrentUser().isEnabled()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         reactionService.react(reactionDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
