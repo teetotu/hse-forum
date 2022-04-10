@@ -25,7 +25,7 @@ public abstract class PostMapper {
 
 
     @Mapping(target = "date", expression = "java(java.time.Instant.now())")
-    @Mapping(target = "description", source = "postRequest.description")
+    @Mapping(target = "content", source = "postRequest.content")
     @Mapping(target = "section", source = "section")
     @Mapping(target = "reactionCount", constant = "0")
     @Mapping(target = "user", source = "user")
