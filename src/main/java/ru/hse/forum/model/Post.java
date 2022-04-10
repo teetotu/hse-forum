@@ -26,7 +26,7 @@ public class Post {
     private String postTitle;
     @Nullable
     @Lob
-    private String description;
+    private String content;
     private Integer reactionCount = 0;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "userId")

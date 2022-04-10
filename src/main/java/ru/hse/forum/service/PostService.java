@@ -94,8 +94,8 @@ public class PostService {
         if (postRequest.getPostTitle() != null) {
             post.setPostTitle(postRequest.getPostTitle());
         }
-        if (postRequest.getDescription() != null) {
-            post.setDescription(postRequest.getDescription());
+        if (postRequest.getContent() != null) {
+            post.setContent(postRequest.getContent());
         }
         postRepository.save(post);
         return postMapper.mapToDto(post);

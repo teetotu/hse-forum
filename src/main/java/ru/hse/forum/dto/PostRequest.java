@@ -11,5 +11,5 @@ public class PostRequest {
     private Long postId;
     private String sectionName;
     private String postTitle;
-    private String description;
+    private String content;
 }

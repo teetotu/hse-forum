@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class PostDTO {
     private Long id;
     private String postTitle;
-    private String description;
+    private String content;
     private String username;
     private String sectionName;
     private Integer reactionCount;
