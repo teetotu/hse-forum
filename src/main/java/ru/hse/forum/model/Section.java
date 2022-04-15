@@ -24,7 +24,6 @@ public class Section {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    @UniqueElements
     @NotBlank(message = "Community name is required")
     private String name;
     @NotBlank(message = "Description is required")

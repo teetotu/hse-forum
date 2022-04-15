@@ -31,6 +31,7 @@ public class SectionService {
 
     @Transactional
     public SectionDto save(SectionDto sectionDto) {
+//        if (!authService.isLoggedIn()) throw new IllegalStateException("Not logged in");
         if (sectionRepository.findByName(sectionDto.getName()).isPresent())
             throw new HseForumException("Section already exists");
         Section save = sectionRepository.save(sectionMapper.mapDtoToSection(sectionDto, authService.getCurrentUser()));
