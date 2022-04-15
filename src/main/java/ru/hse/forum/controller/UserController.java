@@ -73,8 +73,8 @@ public class UserController {
         }
     }
 
-    @GetMapping("/profile-picture/{id}")
-    public ResponseEntity<byte[]> getProfilePicture(@PathVariable("id") Long id) {
+    @GetMapping("/profile-picture")
+    public ResponseEntity<byte[]> getProfilePicture(@RequestParam("id") Long id) {
         if (!authService.getCurrentUser().isEnabled()) return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         try {
             byte[] pp = userService.getProfilePicture(id);

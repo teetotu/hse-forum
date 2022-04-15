@@ -47,16 +47,16 @@ public class SectionController {
                 .body(sectionService.getSection(id));
     }
 
-    @GetMapping("/search?keywords={keywords}&page={page}")
+    @GetMapping("/search")
     public ResponseEntity<List<SectionDto>> getSectionByKeywordsInTitle(
-            @PathVariable("keywords") String keywords, @PathVariable("page") Integer page) {
+            @RequestParam("keywords") String keywords, @RequestParam("page") Integer page) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(sectionService.search(keywords, page, 30));
     }
 
-    @PostMapping("/subscribe?id={id}")
-    public ResponseEntity<Void> subscribeToSection(@PathVariable("id") Long id) {
+    @PostMapping("/subscribe")
+    public ResponseEntity<Void> subscribeToSection(@RequestParam("id") Long id) {
         sectionService.subscribeUser(id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

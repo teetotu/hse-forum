@@ -27,14 +27,14 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/?page={page}")
-    public ResponseEntity<List<PostDTO>> getAllPosts(@PathVariable("page") Integer page) {
+    @GetMapping()
+    public ResponseEntity<List<PostDTO>> getAllPosts(@RequestParam("page") Integer page) {
         
         return status(HttpStatus.OK).body(postService.getAllPosts(page, 30));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> getPost(@PathVariable("id") Long id) {
+    @GetMapping()
+    public ResponseEntity<PostDTO> getPost(@RequestParam("id") Long id) {
         return status(HttpStatus.OK).body(postService.getPost(id));
     }
 
@@ -48,8 +48,8 @@ public class PostController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable("id") Long id) {
+    @DeleteMapping()
+    public ResponseEntity<Void> deletePost(@RequestParam("id") Long id) {
         try {
             postService.deletePost(id);
         } catch (HseForumException e) {
@@ -58,23 +58,23 @@ public class PostController {
         return status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/bySection/{id}?page={page}")
-    public ResponseEntity<List<PostDTO>> getPostsBySection(@PathVariable("id") Long sectionId, @PathVariable("page") Integer page) {
+    @GetMapping("/bySection")
+    public ResponseEntity<List<PostDTO>> getPostsBySection(@RequestParam("id") Long sectionId, @RequestParam("page") Integer page) {
         return status(HttpStatus.OK).body(postService.getPostsBySection(sectionId, page, 30));
     }
 
-    @GetMapping("/byUser/{username}?page={page}")
-    public ResponseEntity<List<PostDTO>> getPostsByUser(@PathVariable("username") String username, @PathVariable("page") Integer page) {
+    @GetMapping("/byUser")
+    public ResponseEntity<List<PostDTO>> getPostsByUser(@RequestParam("username") String username, @RequestParam("page") Integer page) {
         return status(HttpStatus.OK).body(postService.getPostsByUsername(username, page, 30));
     }
 
-    @GetMapping("/byTitle/{keywords}?page={page}")
-    public ResponseEntity<List<PostDTO>> getPostsByKeywordsInTitle(@PathVariable("keywords") String keywords, @PathVariable("page") Integer page) {
+    @GetMapping("/byTitle")
+    public ResponseEntity<List<PostDTO>> getPostsByKeywordsInTitle(@RequestParam("keywords") String keywords, @RequestParam("page") Integer page) {
         return status(HttpStatus.OK).body(postService.getPostsByKeywordsInTitle(keywords, page, 30));
     }
 
-    @GetMapping("/bySubscriptions?page={page}")
-    public ResponseEntity<List<PostDTO>> getSubscriptionPosts(@PathVariable("page") Integer page) {
+    @GetMapping("/bySubscriptions")
+    public ResponseEntity<List<PostDTO>> getSubscriptionPosts(@RequestParam("page") Integer page) {
         return status(HttpStatus.OK).body(postService.getSubscriptionsPosts(page, 30));
     }
 
