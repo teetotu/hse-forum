@@ -31,7 +31,7 @@ public class SectionService {
 
     @Transactional
     public SectionDto save(SectionDto sectionDto) {
-        Section save = sectionRepository.save(sectionMapper.mapDtoToSection(sectionDto));
+        Section save = sectionRepository.save(sectionMapper.mapDtoToSection(sectionDto, authService.getCurrentUser()));
         sectionDto.setId(save.getId());
         return sectionDto;
     }

@@ -6,6 +6,7 @@ import ru.hse.forum.model.Section;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import ru.hse.forum.model.User;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public interface SectionMapper {
 
     @Mapping(target = "numberOfPosts", expression = "java(mapPosts(section.getPosts()))")
+    @Mapping(target = "date", expression = "java(java.time.Instant.now())")
     SectionDto mapSectionToDto(Section section);
 
     default Integer mapPosts(List<Post> posts) {
@@ -21,5 +23,7 @@ public interface SectionMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "posts", ignore = true)
-    Section mapDtoToSection(SectionDto sectionDto);
+    @Mapping(target = "reactionCount", constant = "0")
+    @Mapping(target = "user", source = "user")
+    Section mapDtoToSection(SectionDto sectionDto, User user);
 }

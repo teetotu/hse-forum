@@ -31,6 +31,7 @@ public class Section {
     private List<Post> posts;
     private Instant date;
     @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
     @ManyToMany(mappedBy = "subscriptions")
     private Set<User> subscribers;
