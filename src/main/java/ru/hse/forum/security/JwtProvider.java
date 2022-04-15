@@ -29,7 +29,7 @@ public class JwtProvider {
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(Instant.now())
-                .expiresAt(Instant.now().plusMillis(jwtExpirationInMillis))
+                .expiresAt(Instant.now().plusSeconds(jwtExpirationInMillis))
                 .subject(username)
                 .claim("scope", "ROLE_USER")
                 .build();
