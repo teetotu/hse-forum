@@ -47,7 +47,6 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest loginRequest) {
-        if (!authService.isLoggedIn()) return new ResponseEntity<>(new AuthenticationResponse(), UNAUTHORIZED);
         return new ResponseEntity<>(authService.login(loginRequest), OK);
     }
 
