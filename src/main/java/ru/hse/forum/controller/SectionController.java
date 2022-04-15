@@ -54,7 +54,7 @@ public class SectionController {
                 .body(sectionService.search(keywords, page, 30));
     }
 
-    @PostMapping("/subscribe?{id}")
+    @PostMapping("/subscribe?id={id}")
     public ResponseEntity<Void> subscribeToSection(@PathVariable("id") Long id) {
         sectionService.subscribeUser(id);
         return ResponseEntity.status(HttpStatus.OK).build();
