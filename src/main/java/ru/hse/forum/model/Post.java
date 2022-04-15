@@ -24,7 +24,6 @@ public class Post {
     private Long postId;
     @NotBlank(message = "Post Name cannot be empty or Null")
     private String postTitle;
-    @Nullable
     @Lob
     private String content;
     private Integer reactionCount = 0;
