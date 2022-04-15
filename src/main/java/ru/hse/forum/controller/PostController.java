@@ -21,15 +21,14 @@ public class PostController {
 
     private final PostService postService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Void> createPost(@RequestBody PostRequest request) {
         postService.save(request);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public ResponseEntity<List<PostDTO>> getAllPosts(@RequestParam("page") Integer page) {
-        
         return status(HttpStatus.OK).body(postService.getAllPosts(page, 30));
     }
 
@@ -38,7 +37,7 @@ public class PostController {
         return status(HttpStatus.OK).body(postService.getPost(id));
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<PostDTO> updatePost(@ModelAttribute PostRequest request) {
         try {
             PostDTO response = postService.updatePost(request);
@@ -48,7 +47,7 @@ public class PostController {
         }
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/delete")
     public ResponseEntity<Void> deletePost(@RequestParam("id") Long id) {
         try {
             postService.deletePost(id);
