@@ -32,15 +32,15 @@ public class SectionController {
         }
     }
 
-    @GetMapping("?page={page}")
-    public ResponseEntity<List<SectionDto>> getAllSections(@PathVariable("page") Integer page) {
+    @GetMapping()
+    public ResponseEntity<List<SectionDto>> getAllSections(@RequestParam("page") Integer page) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(sectionService.getPage(page, 30));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<SectionDto> getSection(@PathVariable Long id) {
+    @GetMapping()
+    public ResponseEntity<SectionDto> getSection(@RequestParam("id") Long id) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
