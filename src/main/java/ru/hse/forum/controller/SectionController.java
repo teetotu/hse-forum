@@ -41,6 +41,7 @@ public class SectionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SectionDto> getSection(@PathVariable Long id) {
+
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(sectionService.getSection(id));
