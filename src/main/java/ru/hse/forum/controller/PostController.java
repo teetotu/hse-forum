@@ -15,7 +15,7 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
-@RequestMapping("/api/post/")
+@RequestMapping("/api/post")
 @AllArgsConstructor
 public class PostController {
 
@@ -27,13 +27,13 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("?page={page}")
+    @GetMapping("/?page={page}")
     public ResponseEntity<List<PostDTO>> getAllPosts(@PathVariable("page") Integer page) {
         
         return status(HttpStatus.OK).body(postService.getAllPosts(page, 30));
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PostDTO> getPost(@PathVariable("id") Long id) {
         return status(HttpStatus.OK).body(postService.getPost(id));
     }
@@ -48,7 +48,7 @@ public class PostController {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable("id") Long id) {
         try {
             postService.deletePost(id);
@@ -58,22 +58,22 @@ public class PostController {
         return status(HttpStatus.OK).build();
     }
 
-    @GetMapping("bySection/{id}?page={page}")
+    @GetMapping("/bySection/{id}?page={page}")
     public ResponseEntity<List<PostDTO>> getPostsBySection(@PathVariable("id") Long sectionId, @PathVariable("page") Integer page) {
         return status(HttpStatus.OK).body(postService.getPostsBySection(sectionId, page, 30));
     }
 
-    @GetMapping("byUser/{username}?page={page}")
+    @GetMapping("/byUser/{username}?page={page}")
     public ResponseEntity<List<PostDTO>> getPostsByUser(@PathVariable("username") String username, @PathVariable("page") Integer page) {
         return status(HttpStatus.OK).body(postService.getPostsByUsername(username, page, 30));
     }
 
-    @GetMapping("byTitle/{keywords}?page={page}")
+    @GetMapping("/byTitle/{keywords}?page={page}")
     public ResponseEntity<List<PostDTO>> getPostsByKeywordsInTitle(@PathVariable("keywords") String keywords, @PathVariable("page") Integer page) {
         return status(HttpStatus.OK).body(postService.getPostsByKeywordsInTitle(keywords, page, 30));
     }
 
-    @GetMapping("bySubscriptions?page={page}")
+    @GetMapping("/bySubscriptions?page={page}")
     public ResponseEntity<List<PostDTO>> getSubscriptionPosts(@PathVariable("page") Integer page) {
         return status(HttpStatus.OK).body(postService.getSubscriptionsPosts(page, 30));
     }
