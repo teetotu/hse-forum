@@ -31,6 +31,8 @@ public class SectionService {
 
     @Transactional
     public SectionDto save(SectionDto sectionDto) {
+        if (sectionRepository.findByName(sectionDto.getName()).isPresent())
+            throw new HseForumException("Section already exists");
         Section save = sectionRepository.save(sectionMapper.mapDtoToSection(sectionDto, authService.getCurrentUser()));
         sectionDto.setId(save.getId());
         return sectionDto;

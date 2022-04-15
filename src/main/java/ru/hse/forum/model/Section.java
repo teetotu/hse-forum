@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -23,6 +24,7 @@ public class Section {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+    @UniqueElements
     @NotBlank(message = "Community name is required")
     private String name;
     @NotBlank(message = "Description is required")
