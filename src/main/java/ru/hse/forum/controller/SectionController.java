@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.forum.dto.SectionDto;
+import ru.hse.forum.exceptions.HseForumException;
 import ru.hse.forum.service.AuthService;
 import ru.hse.forum.service.SectionService;
 
@@ -22,8 +23,13 @@ public class SectionController {
 
     @PostMapping
     public ResponseEntity<SectionDto> createSection(@RequestBody SectionDto sectionDto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(sectionService.save(sectionDto));
+        try {
+            SectionDto response = sectionService.save(sectionDto);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(response);
+        } catch (HseForumException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
 
     @GetMapping("?page={page}")
