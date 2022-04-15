@@ -21,8 +21,8 @@ public interface SectionMapper {
     }
 
     @InheritInverseConfiguration
-    @Mapping(target = "posts", ignore = true)
     @Mapping(target = "date", expression = "java(java.time.Instant.now())")
     @Mapping(target = "user", source = "user")
+    @Mapping(target = "posts", source = "java(new List<Post>())")
     Section mapDtoToSection(SectionDto sectionDto, User user);
 }
