@@ -32,7 +32,7 @@ public class SectionController {
         }
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public ResponseEntity<List<SectionDto>> getAllSections(@RequestParam("page") Integer page) {
         return ResponseEntity
                 .status(HttpStatus.OK)
