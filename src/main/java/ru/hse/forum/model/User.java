@@ -2,6 +2,7 @@ package ru.hse.forum.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -14,6 +15,7 @@ import java.util.Set;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Data
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -33,6 +35,7 @@ public class User {
     private boolean enabled;
     @Column(name="profile_picture")
     private byte[] profilePicture;
+    @EqualsAndHashCode.Exclude
     @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "subscription",
