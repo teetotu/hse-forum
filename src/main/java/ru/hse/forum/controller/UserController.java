@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hse.forum.dto.*;
 import ru.hse.forum.exceptions.HseForumException;
-import ru.hse.forum.model.User;
 import ru.hse.forum.service.AuthService;
 import ru.hse.forum.service.RefreshTokenService;
 import ru.hse.forum.service.UserService;
@@ -18,7 +17,8 @@ import ru.hse.forum.service.UserService;
 import javax.validation.Valid;
 import java.io.IOException;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/user")

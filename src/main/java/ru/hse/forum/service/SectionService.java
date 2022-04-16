@@ -67,9 +67,7 @@ public class SectionService {
     public void subscribeUser(Long id) {
         Section section = sectionRepository.findById(id).orElseThrow(() -> new SectionNotFoundException("No forum section found with ID - " + id));
         User user = authService.getCurrentUser();
-        section.getSubscribers().add(user);
         user.getSubscriptions().add(section);
-        sectionRepository.save(section);
         userRepository.save(user);
     }
 }
