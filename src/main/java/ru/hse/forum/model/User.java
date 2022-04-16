@@ -33,7 +33,7 @@ public class User {
     private boolean enabled;
     @Column(name="profile_picture")
     private byte[] profilePicture;
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(
             name = "subscription",
             joinColumns = @JoinColumn(name = "user_id"),
