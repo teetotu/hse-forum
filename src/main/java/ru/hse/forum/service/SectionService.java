@@ -22,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 @Slf4j
+@Transactional
 public class SectionService {
 
     private final SectionRepository sectionRepository;
