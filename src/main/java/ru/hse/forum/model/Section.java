@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -33,5 +34,5 @@ public class Section {
     private User user;
     @EqualsAndHashCode.Exclude
     @ManyToMany(mappedBy = "subscriptions")
-    private Set<User> subscribers;
+    private Set<User> subscribers = new HashSet<>();
 }
