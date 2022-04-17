@@ -89,6 +89,7 @@ class PostServiceTest {
         Mockito.when(postMapper.map(postRequest, section, currentUser))
                 .thenReturn(post);
 
+
         postService.save(postRequest);
         Mockito.verify(postRepository, Mockito.times(1)).save(postArgumentCaptor.capture());
 
