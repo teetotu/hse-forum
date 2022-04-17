@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.hse.forum.dto.ReactionDto;
+import ru.hse.forum.exceptions.HseForumException;
+import ru.hse.forum.exceptions.PostNotFoundException;
 import ru.hse.forum.service.AuthService;
 import ru.hse.forum.service.ReactionService;
 
 @RestController
-@RequestMapping("/api/reactions/")
+@RequestMapping("/api/reaction")
 @AllArgsConstructor
 public class ReactionController {
 
@@ -21,7 +23,13 @@ public class ReactionController {
 
     @PostMapping
     public ResponseEntity<Void> vote(@RequestBody ReactionDto reactionDto) {
-        reactionService.react(reactionDto);
+        try {
+            reactionService.react(reactionDto);
+        } catch (HseForumException e) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        } catch (PostNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
