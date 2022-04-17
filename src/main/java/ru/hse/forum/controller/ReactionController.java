@@ -28,7 +28,7 @@ public class ReactionController {
         } catch (HseForumException e) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         } catch (PostNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }
