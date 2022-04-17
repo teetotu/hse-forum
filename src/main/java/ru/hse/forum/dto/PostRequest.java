@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostRequest {
     private Long postId;
-    private String sectionName;
+    private Long sectionId;
     private String postTitle;
     private String content;
 }

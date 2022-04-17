@@ -32,6 +32,7 @@ public abstract class PostMapper {
     public abstract Post map(PostRequest postRequest, Section section, User user);
 
     @Mapping(target = "id", source = "postId")
+    @Mapping(target = "sectionId", source = "section.id")
     @Mapping(target = "sectionName", source = "section.name")
     @Mapping(target = "username", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")

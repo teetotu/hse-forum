@@ -35,9 +35,9 @@ class PostControllerTest {
     @DisplayName("Should List All Posts When making GET request to endpoint - /api/posts/")
     void shouldCreatePost() throws Exception {
         PostDTO postRequest1 = new PostDTO(1L, "Post Name", "Content1", "User 1",
-                "Forum Section 1", 0, 0, false, false);
+                "Forum Section 1", 1L,0, 0, false, false);
         PostDTO postRequest2 = new PostDTO(2L, "Post Name 2", "Content2", "User 2",
-                "Forum Section 2", 0, 0, false, false);
+                "Forum Section 2", 2L,0, 0, false, false);
 
         Mockito.when(postService.getAllPosts(1, 30)).thenReturn(asList(postRequest1, postRequest2));
 

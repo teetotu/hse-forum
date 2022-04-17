@@ -13,6 +13,7 @@ public class PostDTO {
     private String content;
     private String username;
     private String sectionName;
+    private Long sectionId;
     private Integer reactionCount;
     private Integer commentCount;
     private boolean upvote;

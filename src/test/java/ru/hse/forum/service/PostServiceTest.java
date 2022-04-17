@@ -56,7 +56,7 @@ class PostServiceTest {
         Post post = new Post(123L, "First Post", "Test",
                 0, null, Instant.now(), null);
         PostDTO expectedPostResponse = new PostDTO(123L, "First Post", "Test",
-                "Test User", "Test Subredit", 0, 0, false, false);
+                "Test User", "Test Section", 1L,0, 0, false, false);
 
         Mockito.when(postRepository.findById(123L)).thenReturn(Optional.of(post));
         Mockito.when(postMapper.mapToDto(Mockito.any(Post.class))).thenReturn(expectedPostResponse);
@@ -80,9 +80,9 @@ class PostServiceTest {
                 Collections.emptySet());
         Section section = new Section(123L, "First Forum Section", "Forum Section Description", emptyList(), Instant.now(), currentUser, Collections.emptySet());
         Post post = new Post(123L, "First Post", "Test", 0, null, Instant.now(), null);
-        PostRequest postRequest = new PostRequest(null, "First Forum Section", "First Post", "Test");
+        PostRequest postRequest = new PostRequest(null, 123L, "First Post", "Test");
 
-        Mockito.when(sectionRepository.findByName("First Forum Section"))
+        Mockito.when(sectionRepository.findById(123L))
                 .thenReturn(Optional.of(section));
         Mockito.when(authService.getCurrentUser())
                 .thenReturn(currentUser);

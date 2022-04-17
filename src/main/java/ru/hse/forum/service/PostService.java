@@ -37,8 +37,8 @@ public class PostService {
     public void save(PostRequest postRequest) {
         Section section =
                 sectionRepository
-                        .findByName(postRequest.getSectionName())
-                        .orElseThrow(() -> new SectionNotFoundException(postRequest.getSectionName()));
+                        .findById(postRequest.getSectionId())
+                        .orElseThrow(() -> new SectionNotFoundException(postRequest.getSectionId().toString()));
         postRepository.save(postMapper.map(postRequest, section, authService.getCurrentUser()));
     }
 
