@@ -20,6 +20,6 @@ public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 
     List<Post> findAllByUser(User user, Pageable pageable);
 
-    @Query(value = "SELECT p FROM Pokemon p WHERE fts(:searchString) = true")
+    @Query(value = "select * from post where match(post_title) against(:searchString in natural language mode) order by post.date asc", nativeQuery = true)
     List<Post> search(@Param("searchString") String searchString, Pageable pageable);
 }
