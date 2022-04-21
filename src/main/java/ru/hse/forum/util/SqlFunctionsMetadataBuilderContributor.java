@@ -10,7 +10,7 @@ public class SqlFunctionsMetadataBuilderContributor implements MetadataBuilderCo
     public void contribute(MetadataBuilder metadataBuilder) {
         metadataBuilder.applySqlFunction("fts",
                 new SQLFunctionTemplate(BooleanType.INSTANCE,
-                        "to_tsvector(description) @@ plainto_tsquery(?1)"));
+                        "to_tsvector(post_title) @@ plainto_tsquery(?1)"));
     }
 }
 
