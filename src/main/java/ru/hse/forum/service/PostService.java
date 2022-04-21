@@ -1,5 +1,6 @@
 package ru.hse.forum.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import ru.hse.forum.dto.PostRequest;
@@ -26,6 +27,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 @Transactional
+@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
@@ -78,6 +80,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<PostDTO> getPostsByKeywordsInTitle(String userInput, int page, int size) {
+        log.info("DEBUG " + userInput);
         return postRepository
                 .search(userInput, PageRequest.of(page, size, Sort.by("date").ascending()))
                 .stream()
