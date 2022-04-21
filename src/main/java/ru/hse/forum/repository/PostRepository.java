@@ -20,6 +20,6 @@ public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 
     List<Post> findAllByUser(User user, Pageable pageable);
 
-    @Query(value = "SELECT p FROM Post p WHERE fts(:searchString) = true")
+    @Query(value = "SELECT p FROM Post p WHERE ftsp(:searchString) = true")
     List<Post> search(@Param("searchString") String searchString, Pageable pageable);
 }

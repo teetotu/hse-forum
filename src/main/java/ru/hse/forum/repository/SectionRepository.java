@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface SectionRepository extends PagingAndSortingRepository<Section, Long> {
     Optional<Section> findByName(String sectionName);
 
-    @Query(value = "select * from forum_section where match(name) against(:searchString in natural language mode)", nativeQuery = true)
+    @Query(value = "SELECT s FROM Section s WHERE ftss(:searchString) = true")
     List<Section> search(@Param("searchString") String searchString, Pageable pageable);
 }
