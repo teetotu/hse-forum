@@ -22,7 +22,8 @@ public class SectionController {
     private final SectionService sectionService;
 
     @PostMapping
-    public ResponseEntity<SectionDto> createSection(@RequestBody SectionDto sectionDto) {
+    public ResponseEntity<SectionDto> createSection(@RequestBody SectionDto sectionDto, @RequestHeader("Authorization") String token) {
+        log.info("DEBUG " + token);
         try {
             SectionDto response = sectionService.save(sectionDto);
             return ResponseEntity.status(HttpStatus.CREATED)
